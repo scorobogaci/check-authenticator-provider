@@ -5,7 +5,7 @@ import {Authenticator, useAuthenticator} from "@aws-amplify/ui-react";
 
 import {fetchAuthSession, fetchUserAttributes, updateUserAttributes} from "aws-amplify/auth";
 import '@aws-amplify/ui-react/styles.css'
-// import {StorageBrowser} from "@aws-amplify/ui-react-storage";
+import {StorageBrowser} from "@aws-amplify/ui-react-storage";
 
 const client = generateClient<Schema>();
 
@@ -51,11 +51,11 @@ function App() {
 const SampleComponent = () => {
     const {user, signOut} = useAuthenticator((context) => [context.user]);
 
-    // const defaultPrefixes = [
-    //     'public/',
-    //     (identityId: string) => `protected/${identityId}/`,
-    //     (identityId: string) => `private/${identityId}/`,
-    // ];
+    const defaultPrefixes = [
+        'public/',
+        (identityId: string) => `protected/${identityId}/`,
+        (identityId: string) => `private/${identityId}/`,
+    ];
 
     const logAuthDetails = async ()=>{
         const session = await fetchAuthSession();
@@ -85,7 +85,7 @@ const SampleComponent = () => {
             <div>Hello {user?.signInDetails?.loginId}</div>
             <button onClick={logoutUser}></button>
             <div onClick={logAuthDetails}>log auth details</div>
-            {/*<StorageBrowser defaultPrefixes={defaultPrefixes} />*/}
+            <StorageBrowser defaultPrefixes={defaultPrefixes} />
         </>
     )
 }
